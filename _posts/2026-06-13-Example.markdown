@@ -86,29 +86,6 @@ Result events are -
 Reverse shell and persistence mechanism (pwncat)
 
 
-
-{% highlight js %}
-## all audit events
-#type = "linux-audit"
-| "Vendor.audit_counter" = 2008
-| case {
-  Vendor.audit_type = "PROCTITLE"
-  | Vendor.audit_content := process.command_line;
-
-  *
-  
-}
-| groupBy(Vendor.audit_type, "Vendor.audit_content", function=min("@timestamp", as="first_event"))
-
-## raw cmdline event
-#type = "linux-audit"
-| "Vendor.audit_type" = EXECVE
-| event.category[0] = process
-| process.command_line = /\/usr\/bin\/python3 \/tmp\/.* \d+\.\d+\.\d+\.\d+ \d+ /i
-
-
-{% endhighlight %}
-
 ## Matching Events
 
 {% highlight json-doc %}
