@@ -4,7 +4,7 @@ title:  "Example"
 date:   2026-06-13 12:26:20 +0100
 categories: Test
 ---
-### Attacking Proxmox | Telemetry
+### Proxmox | Telemetry
 
 Once initial access was acquired a reverse shell was established to provide connectivity to attacker controlled infrastructure. Immediately upon connection the file ‘tmplqlhyo0z’ was written to ‘/tmp/’ and regularly invoked through the python script interpreter. This served as a more robust persistence mechanism that would survive shell sessions being forcefully closed.
 
@@ -29,7 +29,7 @@ To begin we first establish events that are applicable.
 
 {% endhighlight %}
 
-This analytic sets an anchor on the audit_counter field. This field is unique for each process execution event but not globally unique within the full context of a systems events. 
+This analytic sets an anchor on the audit_counter field. This field is unique for each process execution event but not globally unique within the full context of a systems events.
 
 Result events are -
 {% highlight json-doc %}
