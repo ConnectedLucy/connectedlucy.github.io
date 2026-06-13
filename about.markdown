@@ -6,6 +6,8 @@ permalink: /about/
 
 [Blog](https://www.goblinloot.net/)
 
-abstract things. 
+abstract things.
+
 colourful things. 
+
 solve things.
