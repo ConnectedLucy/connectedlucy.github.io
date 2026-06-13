@@ -4,11 +4,6 @@ title:  "Example"
 date:   2026-06-13 12:26:20 +0100
 categories: Test
 ---
-layout: post
-title: "Example"
-date: 2026-06-11 17:39:09 +0100
-categories: example
----
 ### Proxmox
 
 think
