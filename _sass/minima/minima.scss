@@ -50,9 +50,9 @@ $on-laptop:        800px !default;
   "minima/syntax-highlighting"
 ;
 
-/* Abstract Background Pattern Update */
+
 body {
-  background-color: #fafafa;
+  background-color: #3f3c3c;
   background-image: 
     radial-gradient(at 10% 20%, rgba(255, 0, 0, 0.15) 0px, transparent 50%),
     radial-gradient(at 80% 10%, rgba(0, 128, 0, 0.15) 0px, transparent 50%),
@@ -64,7 +64,7 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Isolate content to maintain readability over the pattern */
+
 .page-content {
   position: relative;
   background: rgba(255, 255, 255, 0.85);
