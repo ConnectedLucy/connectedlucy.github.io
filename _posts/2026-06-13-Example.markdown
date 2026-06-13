@@ -4,9 +4,8 @@ title:  "Example"
 date:   2026-06-13 12:26:20 +0100
 categories: Test
 ---
-### Proxmox
-
-think
+### Attacking Proxmox | Telemetry
+Reverse shell and persistence mechanism (pwncat)
 
 {% highlight js %}
 ## All audit events
