@@ -8,7 +8,7 @@ categories: Test
 Reverse shell and persistence mechanism (pwncat)
 
 {% highlight js %}
-## All audit events
+## all audit events
 #type = "linux-audit"
 | "Vendor.audit_counter" = 2008
 | case {
