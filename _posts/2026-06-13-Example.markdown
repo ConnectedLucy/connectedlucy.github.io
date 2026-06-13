@@ -15,7 +15,7 @@ I have utilised a parser to better prepare the logs for validation and in this p
 To begin we first establish events that are applicable.
 
 {% highlight js %}
-## all audit events
+// all audit events
 #type = "linux-audit"
 | "Vendor.audit_counter" = 2008
 | case {
