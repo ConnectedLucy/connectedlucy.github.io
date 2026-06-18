@@ -4,7 +4,7 @@ title:  "Proxmox | Catching fish in a muddy pond"
 date:   2026-06-13 12:26:20 +0100
 categories: Test
 ---
-### Starting..
+### Starting.. (DRAFT)
 
 Proxmox does not afford its users native controls for monitoring process executions nor file writes unlike VMWare ESXI and as such auditd or other similar technologies must be deployed. Using auditd we can easily capture a snapshot of the above described behaviour and develop a series of detection ideas that compliment each other.
 
