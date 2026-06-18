@@ -47,12 +47,12 @@ To maximise our coverage of this horizontal movement we can utilise the proxmox 
 **View the full log here:**
 [sim_proxmox_guiauth_rawlog.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_guiauth_rawlog.json)
 
-
-Once an adversary has GUI access to a Proxmox environment their actions are only traceable through these API audit logs. Additionally the Proxmox interface also offers several options for a new shell to be spawned. Creating a shell is logged in the aforementioned API audit logs however it is not afforded any terminal logging forcing us to utilise auditd to trace any activity.
-
 #### Detection Analytics
 
 INSERT
+
+Once an adversary has GUI access to a Proxmox environment their actions are only traceable through these API audit logs. Additionally the Proxmox interface also offers several options for a new shell to be spawned. Creating a shell is logged in the aforementioned API audit logs however it is not afforded any terminal logging forcing us to utilise auditd to trace any activity.
+
 
 ### GUI Shell Logs:
 
@@ -92,6 +92,10 @@ starting termproxy UPID:pve:00001A2C:0003190A:6A33B45E:vncshell::root@pam:
 
 **View the full log here:**
 [sim_proxmox_guishell_rawlog.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_guishell_rawlog.json)
+
+#### Detection Analytics
+
+INSERT
 
 In our example once an adversary has spawned a new shell via the GUI they begin executing shell commands to explore the pve nodes file system with the aim to identify where Guest VM backups are stored.
 
