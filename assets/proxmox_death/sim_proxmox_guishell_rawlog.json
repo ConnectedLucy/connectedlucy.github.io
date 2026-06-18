@@ -1,0 +1,50 @@
+[
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:05:19 pvedaemon[1193]: \u003Croot@pam\u003E end task UPID:pve:00001B99:000344A7:6A33B4CD:vncshell::root@pam: OK\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:05:18 pvedaemon[1193]: \u003Croot@pam\u003E successful auth for user 'root@pam'\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:05:17 pvedaemon[1193]: \u003Croot@pam\u003E starting task UPID:pve:00001B99:000344A7:6A33B4CD:vncshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:05:17 pvedaemon[7065]: starting termproxy UPID:pve:00001B99:000344A7:6A33B4CD:vncshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:03:28 pvedaemon[1193]: \u003Croot@pam\u003E end task UPID:pve:00001508:00026749:6A33B297:vncshell::root@pam: OK\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:03:26 pvedaemon[1194]: \u003Croot@pam\u003E successful auth for user 'root@pam'\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:03:26 pvedaemon[6700]: starting termproxy UPID:pve:00001A2C:0003190A:6A33B45E:vncshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:03:26 pvedaemon[1193]: \u003Croot@pam\u003E starting task UPID:pve:00001A2C:0003190A:6A33B45E:vncshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:00:03 pvedaemon[1194]: \u003Croot@pam\u003E end task UPID:pve:000017F7:0002C7B3:6A33B38E:spiceshell::root@pam: OK\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 10:00:01 pvedaemon[1193]: \u003Croot@pam\u003E successful auth for user 'root@pam'\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 09:59:58 pvedaemon[1194]: \u003Croot@pam\u003E starting task UPID:pve:000017F7:0002C7B3:6A33B38E:spiceshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 09:59:58 pvedaemon[6135]: starting spiceterm UPID:pve:000017F7:0002C7B3:6A33B38E:spiceshell::root@pam: - Shell on 'pve'\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 09:59:58 pvedaemon[6135]: launch command: /usr/bin/spiceterm --port 61000 --addr localhost --timeout 40 --authpath /nodes/pve --permissions Sys.Console --keymap en-gb -- /bin/login -f root\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 09:55:51 pvedaemon[1193]: \u003Croot@pam\u003E starting task UPID:pve:00001508:00026749:6A33B297:vncshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 09:55:51 pvedaemon[5384]: starting vnc proxy UPID:pve:00001508:00026749:6A33B297:vncshell::root@pam:\n\u0000"
+  },
+  {
+    "SYSLOG_RAW": "\u003C30\u003EJun 18 09:55:51 pvedaemon[5384]: launch command: /usr/bin/vncterm -rfbport 5900 -timeout 10 -authpath /nodes/pve -perm Sys.Console -notls -listen localhost -c /bin/login -f root\n\u0000"
+  }
+]

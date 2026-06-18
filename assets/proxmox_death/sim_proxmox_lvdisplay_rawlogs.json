@@ -1,0 +1,17 @@
+[
+  {
+    "@rawstring": "node=pve type=SYSCALL msg=audit(1781774598.143:10641): arch=c000003e syscall=59 success=yes exit=0 a0=5edc57adb980 a1=5edc57f504c0 a2=5edc57f2bcc0 a3=8 items=2 ppid=7764 pid=10088 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=pts0 ses=5 comm=\"lvdisplay\" exe=\"/usr/sbin/lvm\" subj=unconfined key=\"exec\""
+  },
+  {
+    "@rawstring": "node=pve type=PROCTITLE msg=audit(1781774598.143:10641): proctitle=\"lvdisplay\""
+  },
+  {
+    "@rawstring": "node=pve type=EXECVE msg=audit(1781774598.143:10641): argc=1 a0=\"lvdisplay\""
+  },
+  {
+    "@rawstring": "node=pve type=PATH msg=audit(1781774598.143:10641): item=0 name=\"/usr/sbin/lvdisplay\" inode=265377 dev=fc:01 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0"
+  },
+  {
+    "@rawstring": "node=pve type=PATH msg=audit(1781774598.143:10641): item=1 name=\"/lib64/ld-linux-x86-64.so.2\" inode=264121 dev=fc:01 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0"
+  }
+]
