@@ -11,3 +11,6 @@ abstract things.
 colourful things. 
 
 solve things.
+
+
+I think about thinking about thinking about thinking and now I'm obsessed.
