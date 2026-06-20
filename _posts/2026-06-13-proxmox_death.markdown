@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Proxmox and Adversaries | Catching fish with your hands"
+title:  "Proxmox and Adversaries | What to know"
 date:   2026-06-13 12:26:20 +0100
 categories: proxmox
 ---
