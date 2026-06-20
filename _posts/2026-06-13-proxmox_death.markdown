@@ -19,36 +19,53 @@ I have utilised a parser to better prepare the logs for validation and in this p
 
 Proxmox appliances can utilise the same user management provider for both terminal access and the virtual environment graphical interface. In this example the adversary has gained access to a Proxmox appliance through a remote SSH session but has chosen to pivot to the graphical interface with the knowledge that interactions are harder to trace and therefore less likely to be logged.
 
-To maximise our coverage of this horizontal movement we can utilise the proxmox daemon logs. These logs store API requests the daemon processes and sends to pve to execute.
+To maximise our coverage of this horizontal movement we can utilise the pveproxy and journald. These logs store API requests the daemon processes and executes.
+
+In our example the adversary has attempted to brute force valid accounts across a number of domains. This is easily discoverable through the journald logs for ‘pvedaemon.service’. Aggregating on the key fields creates a simple view:
 
 ### GUI Authentication Logs:
 
-**failed login attempts**
+In our example the adversary has attempted to brute force valid accounts across a number of domains. This is easily discoverable through the journald logs for ‘pvedaemon.service’. Aggregating on the key fields creates a simple view:
 
 {% highlight js %}
-::ffff:192.168.1.173 - - [18/06/2026:09:36:23 +0100] "POST /api2/extjs/access/ticket HTTP/1.1" 200 77
+regex(field=@rawstring, regex="rhost=(?:::ffff:)?(?<ip>.*?)\s+user=(?<user>[^@\s]+)(?:@(?<domain>[a-zA-Z0-9.\-]+))?")
+// no realm means local host auth was tried
+| case{
+  domain != *
+  | domain := "pam"; *
+  
+}
+| groupBy([user, domain, ip], function=count(as=Total))
+| sort(Total)
 {% endhighlight %}
-
-**successful login attempts -** generate a unique pattern of logs depending on the authentication realm used by Proxmox. If Proxmox utilises local authentication it registers the following:
-
-{% highlight js %}
-::ffff:192.168.1.173 - root@pam [18/06/2026:09:37:16 +0100] "GET /api2/extjs/cluster/options?_dc=1781771836136 HTTP/1.1" 200 100
-
-::ffff:192.168.1.173 - root@pam [18/06/2026:09:37:16 +0100] "GET /api2/extjs/cluster/sdn?_dc=1781771836136 HTTP/1.1" 200 118
-
-::ffff:192.168.1.173 - root@pam [18/06/2026:09:37:16 +0100] "GET /api2/extjs/nodes/localhost/subscription?_dc=1781771836137 HTTP/1.1" 200 200
-
-::ffff:192.168.1.173 - root@pam [18/06/2026:09:37:16 +0100] "GET /api2/extjs/version?_dc=1781771836136 HTTP/1.1" 200 84
-{% endhighlight %}
-
-**logout events**
-
-{% highlight js %}
-::ffff:192.168.1.173 - - [18/06/2026:09:33:29 +0100] "GET /api2/json/access/domains HTTP/1.1" 200 159
-{% endhighlight %}
-
-**View the full log here:**
-[sim_proxmox_guiauth_rawlog.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_guiauth_rawlog.json)
+```jsx
+[
+  {
+    "ip": "192.168.1.157",
+    "domain": "pam",
+    "Total": "30",
+    "user": "root"
+  },
+  {
+    "ip": "192.168.1.157",
+    "domain": "open",
+    "Total": "13",
+    "user": "root"
+  },
+  {
+    "ip": "192.168.1.157",
+    "domain": "pve",
+    "Total": "9",
+    "user": "admin"
+  },
+  {
+    "ip": "192.168.1.157",
+    "domain": "pve",
+    "Total": "5",
+    "user": "root"
+  }
+]
+```
 
 #### Detection Analytics
 
