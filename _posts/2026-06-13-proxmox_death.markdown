@@ -21,7 +21,6 @@ Proxmox appliances can utilise the same user management provider for both termin
 
 To maximise our coverage of this horizontal movement we can utilise the pveproxy and journald. These logs store API requests the daemon processes and executes.
 
-In our example the adversary has attempted to brute force valid accounts across a number of domains. This is easily discoverable through the journald logs for ‘pvedaemon.service’. Aggregating on the key fields creates a simple view:
 
 ### GUI Authentication Logs:
 
@@ -69,7 +68,49 @@ regex(field=@rawstring, regex="rhost=(?:::ffff:)?(?<ip>.*?)\s+user=(?<user>[^@\s
 
 #### Detection Analytics
 
-INSERT
+**Identify the volume of each key property per source**
+
+**CQL**
+{% highlight js %}
+// extract key fields
+regex(field=@rawstring, regex="rhost=(?:::ffff:)?(?<ip>.*?)\s+user=(?<user>[^@\s]+)(?:@(?<domain>[a-zA-Z0-9.\-]+))?")
+// no realm means local host auth was tried
+| case{
+  domain != *
+  | domain := "pam"; *
+  
+}
+// aggregate by source
+| groupBy([ip], function=[
+                          // count key fields
+                          count(as=Total), 
+                          count(domain, distinct=true, as=TotalDomains), 
+                          count(user, distinct=true, as=TotalUsers),
+                          // find start and end of activity
+                          max(@timestamp, as=end), 
+                          min(@timestamp, as=start)])
+
+// calculate new values
+| delta := end - start
+| round("delta")
+| formatDuration("delta")
+```jsx
+
+**KQL**
+{% highlight js %}
+| extend key_fields = extract_all(@"rhost=(?:::ffff:)?(?P<ip>.*?)\s+user=(?P<user>[^@\s]+)(?:@(?P<domain>[a-zA-Z0-9.\-]+))?", rawstring)
+| extend 
+    ip = tostring(key_fields[0][0]),
+    user = tostring(key_fields[0][1]),
+    domain = tostring(key_fields[0][2])
+| summarize 
+            total = count(), 
+            dcount(user), 
+            dcount(domain), 
+            max(TimeGenerated),
+            min(TimeGenerated) by ip
+| extend delta = max_TimeGenerated - min_TimeGenerate
+```jsx
 
 Once an adversary has GUI access to a Proxmox environment their actions are only traceable through these API audit logs. Additionally the Proxmox interface also offers several options for a new shell to be spawned. Creating a shell is logged in the aforementioned API audit logs however it is not afforded any terminal logging forcing us to utilise auditd to trace any activity.
 
