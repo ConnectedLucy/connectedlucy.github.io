@@ -94,9 +94,10 @@ regex(field=@rawstring, regex="rhost=(?:::ffff:)?(?<ip>.*?)\s+user=(?<user>[^@\s
 | delta := end - start
 | round("delta")
 | formatDuration("delta")
-```jsx
+{% endhighlight %}
 
 **KQL**
+
 {% highlight js %}
 | extend key_fields = extract_all(@"rhost=(?:::ffff:)?(?P<ip>.*?)\s+user=(?P<user>[^@\s]+)(?:@(?P<domain>[a-zA-Z0-9.\-]+))?", rawstring)
 | extend 
@@ -110,7 +111,7 @@ regex(field=@rawstring, regex="rhost=(?:::ffff:)?(?<ip>.*?)\s+user=(?<user>[^@\s
             max(TimeGenerated),
             min(TimeGenerated) by ip
 | extend delta = max_TimeGenerated - min_TimeGenerate
-```jsx
+{% endhighlight %}
 
 Once an adversary has GUI access to a Proxmox environment their actions are only traceable through these API audit logs. Additionally the Proxmox interface also offers several options for a new shell to be spawned. Creating a shell is logged in the aforementioned API audit logs however it is not afforded any terminal logging forcing us to utilise auditd to trace any activity.
 
