@@ -6,7 +6,7 @@ categories: proxmox
 ---
 ### Starting..
 
-This post is joined with an overview kept here: [Adversaries in proxmox](https://www.goblinloot.net/2026/06/adversaries-in-proxmox-goblin-diary-3.html)
+This post is joined with an overview kept here: [Adversaries in proxmox](https://www.goblinloot.net/2026/06/adversaries-in-proxmox.html)
 
 🌟 Testing your own detections or want to practice hunting? Upload the full log to your SIEM:
 [sim_proxmox_full_log.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_full_log.json)
