@@ -236,5 +236,53 @@ lvdisplay: LOLbin that displays volume information
 
 #### Detection Analytics
 
-INSERT
+**Identify storage and volume enumeration activity**
 
+**CQL**
+{% highlight js %}
+| case {
+  
+  // directory used in cmdline
+  audit_type = PROCTITLE
+  | process.command_line = /\/var\/lib\/vz\/dump\//i
+  | direct_dir_access := @timestamp;
+
+  // volume enumeration
+  dataset = auditd.syscall
+  | Vendor.comm = lvdisplay
+  | lvdisplay := @timestamp;
+
+  // pve shell enumeration
+  audit_type = EXECVE
+  |  process.command_line = /\/usr\/bin\/pvesh get/i
+  | pve_shell_enum := @timestamp;
+  
+  //QEMU enumeration
+  audit_type = EXECVE
+  |  process.command_line = /\/usr\/sbin\/qm list/i
+  | qemu_enum := @timestamp;
+
+  //pve storage manager storage content
+  audit_type = EXECVE
+  |  process.command_line = /\/usr\/sbin\/pvesm list/i
+  | storage_content := @timestamp;
+
+  //pve storage manager volume paths
+  audit_type = EXECVE
+  |  process.command_line = /\/usr\/sbin\/pvesm path/i
+  | volume_paths:= @timestamp;
+
+  
+}
+| groupBy([@collect.host], function=[
+                                      min(direct_dir_access, as=min_direct_dir_access),
+                                      min(lvdisplay, as=min_lvdisplay),
+                                      min(pve_shell_enum, as=min_pve_shell_enum),
+                                      min(qemu_enum, as=min_qemu_enum),
+                                      min(storage_content, as=min_storage_content),
+                                      min(volume_paths, as=min_volume_paths),
+                                      collect(process.command_line, Vendor.comm)
+  
+  
+                          ])
+{% endhighlight %}
