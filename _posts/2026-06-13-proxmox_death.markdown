@@ -155,9 +155,6 @@ starting termproxy UPID:pve:00001A2C:0003190A:6A33B45E:vncshell::root@pam:
 **View the full log here:**
 [sim_proxmox_guishell_rawlog.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_guishell_rawlog.json)
 
-#### Detection Analytics
-
-INSERT
 
 In our example once an adversary has spawned a new shell via the GUI they begin executing shell commands to explore the pve nodes file system with the aim to identify where Guest VM backups are stored.
 
