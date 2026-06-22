@@ -11,6 +11,8 @@ This post is joined with an overview kept here: [Adversaries in proxmox](https:/
 🌟 Testing your own detections or want to practice hunting? Upload the full log to your SIEM:
 [sim_proxmox_full_log.json]({{ site.url }}\assets\proxmox_death\sim_proxmox_full_log.json)
 
+Explore the systems that make sharing logs with each other important here: [Will Any of This Fire?](https://detection.wiki/blog/triaging-a-threat-report/)
+
 Proxmox does not afford its users native controls for monitoring process executions nor file writes unlike VMWare ESXI and as such auditd or other similar technologies must be deployed. Using auditd we can easily capture adversary behaviour and develop a series of detection ideas that compliment each other.
 
 I have utilised a parser to better prepare the logs for validation and in this parser ‘PROCTILE’ events are decode from hexadecimal to full strings. You must also do this using your own tools if you wish to process the events in the same capacity as I have in this blog.
