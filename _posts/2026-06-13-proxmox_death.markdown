@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Proxmox and Adversaries | What to know"
+title:  "Proxmox and Adversaries | Part 1"
 date:   2026-06-13 12:26:20 +0100
 categories: proxmox
 ---
-### Starting.. (DRAFT IN PROGRESS)
+### Starting..
 
 This post is joined with an overview kept here: [Adversaries in proxmox](https://www.goblinloot.net/2026/06/adversaries-in-proxmox-goblin-diary-3.html)
 
